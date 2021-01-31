@@ -23,10 +23,10 @@ const Regions = () => {
       <li>
         {Object.keys(regions[0]).map((key) => (
           <button
+            id={regions[0][key]}
             key={key}
             onClick={(e) => {
-              toggleRegions(e.target.innerHTML)
-              console.log('KEY: ' + regions[0][key])
+              toggleRegions(e.target.innerHTML, e.target.id)
               return handleFilter(`&country=${regions[0][key]}`)
             }}
           >

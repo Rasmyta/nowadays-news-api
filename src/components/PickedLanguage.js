@@ -6,7 +6,7 @@ const PickedLanguage = () => {
   const { pickedLanguage, removeLanguage } = useGlobalContext()
   return (
     <div className='option'>
-      <p>{`${pickedLanguage}`}</p>
+      <p>{`${pickedLanguage.name}`}</p>
       <button onClick={removeLanguage}>
         <RiDeleteBack2Line />
       </button>

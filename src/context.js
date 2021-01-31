@@ -16,6 +16,11 @@ import {
 import reducer from './reducer'
 import data from './stories-data' //prueba
 
+/**
+ * El fichero context.js contiene todos los estados y todas las funciones de la aplicacion.
+ * En otros componentes se puede importar solo lo que necesita en ese componente particular.
+ */
+
 const baseUrl = 'https://api.currentsapi.services/v1/'
 const apiKey = 'apiKey=LLSJkb1LWAtNQJPloddoypYepNF2KZorIIEO42NRBfOuLWFt'
 
@@ -30,8 +35,8 @@ const initialState = {
   showRegions: false,
   showLanguages: false,
   pickedCategory: '',
-  pickedRegion: '',
-  pickedLanguage: '',
+  pickedRegion: { name: '', id: '' },
+  pickedLanguage: { name: '', id: '' },
 }
 
 const AppContext = React.createContext()
@@ -50,8 +55,8 @@ const AppProvider = ({ children }) => {
     }
 
     try {
-      const response = await fetch(url)
-      const data = await response.json()
+      // const response = await fetch(url)
+      // const data = await response.json()
       dispatch({
         type: SET_STORIES,
         payload: { stories: data.news },
@@ -64,20 +69,18 @@ const AppProvider = ({ children }) => {
   const toggleLinks = () => {
     dispatch({ type: SHOW_LINKS })
   }
-
   const toggleSearch = () => {
     dispatch({ type: SHOW_SEARCH })
   }
   const toggleCategories = (category) => {
-    dispatch({ type: SHOW_CATEGORIES, payload: { category: category } })
+    dispatch({ type: SHOW_CATEGORIES, payload: { category } })
   }
-  const toggleRegions = (region) => {
-    dispatch({ type: SHOW_REGIONS, payload: { region: region } })
+  const toggleRegions = (region, id) => {
+    dispatch({ type: SHOW_REGIONS, payload: { region, id } })
   }
-  const toggleLanguages = (language) => {
-    dispatch({ type: SHOW_LANGUAGES, payload: { language: language } })
+  const toggleLanguages = (language, id) => {
+    dispatch({ type: SHOW_LANGUAGES, payload: { language, id } })
   }
-
   const removeCategory = () => {
     dispatch({ type: REMOVE_CATEGORY })
   }

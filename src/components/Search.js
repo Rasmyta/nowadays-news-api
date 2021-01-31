@@ -46,20 +46,22 @@ const Search = () => {
       <li>
         <a
           className='option-toggle'
-          onClick={() => toggleRegions(pickedRegion)}
+          onClick={() => toggleRegions(pickedRegion.name, pickedRegion.id)}
         >
           Region
         </a>
-        {pickedRegion !== '' ? <PickedRegion /> : ''}
+        {pickedRegion.id !== '' ? <PickedRegion /> : ''}
       </li>
       <li>
         <a
           className='option-toggle'
-          onClick={() => toggleLanguages(pickedLanguage)}
+          onClick={() =>
+            toggleLanguages(pickedLanguage.name, pickedLanguage.id)
+          }
         >
           Language
         </a>
-        {pickedLanguage !== '' ? <PickedLanguage /> : ''}
+        {pickedLanguage.id !== '' ? <PickedLanguage /> : ''}
       </li>
 
       <button

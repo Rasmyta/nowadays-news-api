@@ -6,7 +6,7 @@ const PickedRegion = () => {
   const { pickedRegion, removeRegion } = useGlobalContext()
   return (
     <div className='option'>
-      <p>{`${pickedRegion}`}</p>
+      <p>{`${pickedRegion.name}`}</p>
       <button onClick={removeRegion}>
         <RiDeleteBack2Line />
       </button>

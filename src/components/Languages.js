@@ -23,9 +23,10 @@ const Languages = () => {
       <li>
         {Object.keys(languages[0]).map((key) => (
           <button
+            id={languages[0][key]}
             key={key}
             onClick={(e) => {
-              toggleLanguages(e.target.innerHTML)
+              toggleLanguages(e.target.innerHTML, e.target.id)
               return handleFilter(`&language=${languages[0][key]}`)
             }}
           >

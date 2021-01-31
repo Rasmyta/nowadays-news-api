@@ -19,8 +19,6 @@ const reducer = (state, action) => {
       return { ...state, isLoading: true }
 
     case SET_STORIES:
-      // console.log('SET_STORIES query: ' + state.query)
-      // console.log('SET_STORIES search: ' + state.searchUrl)
       return {
         ...state,
         isLoading: false,
@@ -48,7 +46,10 @@ const reducer = (state, action) => {
         showRegions: !state.showRegions,
         showCategories: false,
         showLanguages: false,
-        pickedRegion: action.payload.region,
+        pickedRegion: {
+          name: action.payload.region,
+          id: action.payload.id,
+        },
       }
 
     case SHOW_LANGUAGES:
@@ -57,29 +58,35 @@ const reducer = (state, action) => {
         showLanguages: !state.showLanguages,
         showCategories: false,
         showRegions: false,
-        pickedLanguage: action.payload.language,
+        pickedLanguage: {
+          name: action.payload.language,
+          id: action.payload.id,
+        },
       }
 
     case REMOVE_CATEGORY:
-      console.log('REMOVE_CATEGORY: ' + state.query)
       return {
         ...state,
         pickedCategory: '',
         query: state.query.replace(`&category=${state.pickedCategory}`, ''),
       }
     case REMOVE_REGION:
-      console.log('REMOVE_REGION: ' + state.query)
       return {
         ...state,
-        pickedRegion: '',
-        query: state.query.replace(`&country=${state.pickedRegion}`, ''),
+        pickedRegion: {
+          name: '',
+          id: '',
+        },
+        query: state.query.replace(`&country=${state.pickedRegion.id}`, ''),
       }
     case REMOVE_LANGUAGE:
-      console.log('REMOVE_LANGUAGE: ' + state.query)
       return {
         ...state,
-        pickedLanguage: '',
-        query: state.query.replace(`&language=${state.pickedLanguage}`, ''),
+        pickedLanguage: {
+          name: '',
+          id: '',
+        },
+        query: state.query.replace(`&language=${state.pickedLanguage.id}`, ''),
       }
 
     case HANDLE_FILTER:
@@ -94,18 +101,12 @@ const reducer = (state, action) => {
       console.log('PAYLOAD:   ' + payload)
 
       let payloadKey = payload.split('=')[0]
-      console.log('PAYLOAD KEY:   ' + payloadKey)
-
       let payloadValue = payload.split('=')[1]
-      console.log('PAYLOAD VALUE:   ' + payloadValue)
 
       let currentQuery = querys.reduce((result, query) => {
         query = '&' + query
         let queryKey = query.split('=')[0]
-        console.log('QUERY KEY:   ' + queryKey)
-
         let queryValue = query.split('=')[1]
-        console.log('QUERY VALUE:   ' + queryValue)
 
         if (query.includes(payloadKey) && queryKey == payloadKey) {
           return result + query.replace(queryValue, payloadValue)
