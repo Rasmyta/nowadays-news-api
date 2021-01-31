@@ -4,6 +4,8 @@ import './styles/index.css'
 import { App } from './App'
 import { AppProvider } from './context'
 
+// El componente root es <App />
+
 ReactDOM.render(
   <React.StrictMode>
     <AppProvider>

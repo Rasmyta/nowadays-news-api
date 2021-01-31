@@ -91,43 +91,30 @@ const reducer = (state, action) => {
 
     case HANDLE_FILTER:
       let oldQuery = state.query
-      console.log('OLD QUERY: ' + oldQuery)
-
-      let querys =
-        oldQuery == '' ? oldQuery.split('&') : oldQuery.split('&').slice(1)
-      console.log('QUERYS: ' + querys)
-
       let payload = action.payload.query //ej. &category=sports
-      console.log('PAYLOAD:   ' + payload)
+      let currentQuery
 
-      let payloadKey = payload.split('=')[0]
-      let payloadValue = payload.split('=')[1]
+      if (payload) {
+        let querys = oldQuery.split('&')
+        let payloadKey = payload.split('=')[0]
+        let payloadValue = payload.split('=')[1]
 
-      let currentQuery = querys.reduce((result, query) => {
-        query = '&' + query
-        let queryKey = query.split('=')[0]
-        let queryValue = query.split('=')[1]
+        currentQuery = querys.reduce((result, query) => {
+          query = '&' + query
+          let queryKey = query.split('=')[0]
+          let queryValue = query.split('=')[1]
 
-        if (query.includes(payloadKey) && queryKey == payloadKey) {
-          return result + query.replace(queryValue, payloadValue)
-        } else {
-          if (query == '&') {
-            return result + payload
+          if (query.includes(payloadKey) && queryKey == payloadKey) {
+            return result + query.replace(queryValue, payloadValue)
+          } else {
+            return query == '&' ? result + payload : result + query
           }
-          return result + query + payload
+        }, '')
+      } else {
+        currentQuery = payload
+      }
 
-          // return query == '&' ? result + payload : result + query + payload
-        }
-      }, '')
-
-      //  console.log("'" + query + "'" + ' includes ' + payloadKey)
-      // console.log("'" + query + "'" + ' not includes ' + payloadKey)
-      // console.log('PAYLOAD:   ' + payload)
-      // console.log('PAYLOAD KEY:   ' + payloadKey)
-      // console.log('OLD QUERY: ' + oldQuery)
-      // console.log('\n')
       console.log('CURRENT QUERY: ' + currentQuery)
-      console.log('\n')
 
       return {
         ...state,

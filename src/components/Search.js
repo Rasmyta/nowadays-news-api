@@ -41,6 +41,7 @@ const Search = () => {
         >
           Category
         </a>
+        {/* si el estado 'pickedCategory' lleva algo, se muestra el componente 'PickedCategory' con la categoria*/}
         {pickedCategory !== '' ? <PickedCategory /> : ''}
       </li>
       <li>
@@ -64,6 +65,7 @@ const Search = () => {
         {pickedLanguage.id !== '' ? <PickedLanguage /> : ''}
       </li>
 
+      {/* ejecuta la busqueda */}
       <button
         className='btn'
         onClick={() => {

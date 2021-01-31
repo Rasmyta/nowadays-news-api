@@ -14,7 +14,6 @@ import {
   REMOVE_LANGUAGE,
 } from './constants/actions'
 import reducer from './reducer'
-import data from './stories-data' //prueba
 
 /**
  * El fichero context.js contiene todos los estados y todas las funciones de la aplicacion.
@@ -44,6 +43,7 @@ const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  // devuelve las noticias por la url. Siempre devuelve sobre 30 resultados
   const fetchStories = async (query) => {
     dispatch({ type: SET_LOADING })
 
@@ -102,6 +102,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: HANDLE_SEARCH })
   }
 
+  // siempre cuando se cambia searchUrl hace fetch de las noticias
   useEffect(() => {
     fetchStories(state.query)
   }, [state.searchUrl])

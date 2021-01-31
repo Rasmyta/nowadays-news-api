@@ -22,6 +22,7 @@ const Navbar = () => {
   const linksContainerRef = useRef(null)
   const linksRef = useRef(null)
 
+  // useEffect se ejecuta si se cambia el segundo parametro - en este caso el estado de'showLinks'
   useEffect(() => {
     const linksHeight = linksRef.current.getBoundingClientRect().height // getting the height of total links
     // if 'showLinks' is true, we show links in full height, else - we hide it
@@ -37,7 +38,6 @@ const Navbar = () => {
       <div className='nav-center'>
         <div className='nav-header'>
           <h1 className='name'>Nowadays</h1>
-          {/* <h3>News From Around the World</h3> */}
           <button className='nav-toggle' onClick={toggleLinks}>
             <FaBars />
           </button>
@@ -56,6 +56,7 @@ const Navbar = () => {
               </a>
             </li>
             <li key='2'>
+              {/* onClick se muestra los filtros de busqueda - el componente Search */}
               <a href='#' className='search-toggle' onClick={toggleSearch}>
                 Search
               </a>
